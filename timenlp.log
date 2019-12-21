@@ -1,0 +1,17 @@
+ * Serving Flask app "resourse" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 325-447-067
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+127.0.0.1 - - [10/Dec/2019 01:23:12] "2
+GET / HTTP/1.1" 200 -
+127.0.0.1 - - [10/Dec/2019 01:23:13] "GET /favicon.ico HTTP/1.1" 404 -
+ * Detected change in 'C:\\Users\\lei\\PycharmProjects\\flask-mysql\\resourse\\api\\auth.py', reloading
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 325-447-067
+ * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)

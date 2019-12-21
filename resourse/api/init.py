@@ -3,9 +3,9 @@ from flask import (
 )
 from resourse import sqldb
 
-initbp = Blueprint('init', __name__, url_prefix='/api/init')
+initbp = Blueprint('init', __name__, url_prefix='/init')
 
-@initbp.route("")
+@initbp.route("/")
 def init():
 	coursesql = "SELECT * FROM course"
 	mydb = sqldb.get_db()
@@ -27,7 +27,7 @@ def init():
 			"introduction": course[5]
 		}
 		courses_list.append(course_dict)
-
+	mydb.disconnect()
 	return jsonify(courses_list)
 
 @initbp.route('/student')

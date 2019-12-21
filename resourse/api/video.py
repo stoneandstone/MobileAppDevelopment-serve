@@ -6,15 +6,15 @@ from werkzeug.utils import secure_filename
 
 filebp = Blueprint('file', __name__, url_prefix='/api/file')
 
-JPG_PATH = '/root/Android/file/jpg/'
+JPG_PATH = '/root/Android/file/video/'
 
 
-@filebp.route('/jpg/<picture_name>', methods=('GET', 'POST'))
+@filebp.route('/video/<picture_name>', methods=('GET', 'POST'))
 def picture(picture_name):
 	file_exist = os.path.exists(JPG_PATH + picture_name)
 	if request.method == 'GET':
 		if not file_exist:
-			return "No Such Picture"
+			return "No Such Video"
 		try:
 			response = Response(JPG_PATH + picture_name, mimetype="image/jpeg")
 			return send_from_directory(JPG_PATH, picture_name)

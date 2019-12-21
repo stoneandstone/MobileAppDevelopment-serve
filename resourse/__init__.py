@@ -1,29 +1,20 @@
-from flask import Flask
-from resourse.api import course, video, auth, init
+from flask import Flask, g, current_app
+from flask_sqlalchemy import SQLAlchemy
 
 
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev'
-    )
+from . import config
 
-    app.config.from_pyfile("app.cfg")
+app = Flask(__name__)
+db = SQLAlchemy()
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    @app.route('/')
-    def initapp():
-        return "Init"
-
-
-    app.register_blueprint(auth.authbp)
-    app.register_blueprint(video.filebp)
-    app.register_blueprint(course.coursebp)
-    app.register_blueprint(init.initbp)
-
-    return app
+def create_app():
+	app.config.from_object(config.Config)
+	db.init_app(app)
+	with app.app_context():
+		# Imports
+		from resourse.api import courseApi, video, authApi, init
+		app.register_blueprint(courseApi.coursebp)
+		app.register_blueprint(authApi.authbp)
+		# Create tables for our models
+		db.create_all()
+		return app
