@@ -12,9 +12,11 @@ def create_app():
 	db.init_app(app)
 	with app.app_context():
 		# Imports
-		from resourse.api import courseApi, video, authApi, init
-		app.register_blueprint(courseApi.coursebp)
-		app.register_blueprint(authApi.authbp)
+		from resourse.api import courseBp, fileBp, authBp, checkBp
+		app.register_blueprint(courseBp.coursebp)
+		app.register_blueprint(authBp.authbp)
+		app.register_blueprint(fileBp.filebp)
+		app.register_blueprint(checkBp.checkbp)
 		# Create tables for our models
 		db.create_all()
 		return app

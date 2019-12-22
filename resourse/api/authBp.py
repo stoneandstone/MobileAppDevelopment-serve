@@ -47,7 +47,7 @@ def create_token(id, type):
 
 @app.before_request
 def is_login():
-	if request.path == "/auth/login" or request.path == "/auth/register" or request.path == '/test':
+	if request.path == "/auth/login" or request.path == "/auth/register":
 		return None
 	token = request.headers.get("Authorization")
 	if token:
@@ -139,7 +139,10 @@ def login():
 					password = student.password
 					if md5(login_password) == password:
 						token = create_token(username, 'student')
-						result = {'code': '200', 'flag': True, 'token': token, 'message': '登录成功'}
+						obj_dict = student.as_dict()
+						obj_dict['token'] = token
+						result = {'code': '200', 'flag': True, 'token': token, 'message': '登录成功',
+								  'obj': obj_dict}
 						return jsonify(result)
 					else:
 						result = {'code': '201', 'flag': False, 'message': '密码错误'}
@@ -160,7 +163,10 @@ def login():
 					password = teacher.password
 					if md5(login_password) == password:
 						token = create_token(username, 'teacher')
-						result = {'code': '200', 'flag': True, 'token': token, 'message': '登录成功'}
+						obj_dict = teacher.as_dict()
+						obj_dict['token'] = token
+						result = {'code': '200', 'flag': True, 'token': token, 'message': '登录成功',
+								  'obj': obj_dict}
 						return jsonify(result)
 					else:
 						result = {'code': '201', 'flag': False, 'message': '密码错误'}
